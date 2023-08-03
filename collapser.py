@@ -6,7 +6,7 @@ import sys, os, re
 from os import listdir
 from os.path import isfile, join
 from tqdm import tqdm_notebook, tnrange, tqdm
-import distance
+from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np
 from datetime import datetime
@@ -23,16 +23,16 @@ def get_best_re(x, target_re):
     x_count = sorted(dict(Counter(x)).items(), key=itemgetter(1), reverse=True)
     x_count_max = [(re,a) for re,a in x_count if a == x_count[0][1]]
     if len(x_count_max) == 1:
-        return((x_count_max[0][0],x_count_max[0][1],distance.hamming(x_count_max[0][0], target_re)))
+        return((x_count_max[0][0],x_count_max[0][1], hamming_dist(x_count_max[0][0], target_re)))
     else:
-        x_ham = [(re,a,distance.hamming(re, target_re)) for re,a in x_count_max]
+        x_ham = [(re, a, hamming_dist(re, target_re)) for re,a in x_count_max]
         return(min(x_ham, key=itemgetter(2)))
 
 
 def collapser(filename, inputdir, outputdir, target_re):
 
     readsname = os.path.splitext(filename)[0]
-    df = pd.read_table(inputdir + filename, '\t')
+    df = pd.read_table(inputdir + filename)
     df = df.drop_duplicates('READNAME', keep=False)
     df['BARCODE'].fillna('', inplace=True)
     df['BARCODE_Q'].fillna('', inplace=True)

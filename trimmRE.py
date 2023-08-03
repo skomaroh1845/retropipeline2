@@ -15,7 +15,7 @@ from operator import itemgetter
 from datetime import datetime
 #import pyximport
 #pyximport.install()
-from cimple_func import hamming
+from simple_func import hamming
 #import distance
 #from collections import Counter
 
