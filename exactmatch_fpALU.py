@@ -1,13 +1,9 @@
 import pandas as pd
 import intervaltree as it
-from collections import defaultdict
-from collections import Counter
 import sys, os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange
-import distance
-from operator import itemgetter
+from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -117,7 +113,7 @@ def intersection(filename, inputdir, outputdir, replibrary, min_read, window):
                                 'R_SITE_POS',
                                 'READNAME',
                                 'IDX']) + '\n')
-    df = pd.read_table(inputdir + filename, '\t')
+    df = pd.read_table(inputdir + filename)
     for i in tqdm_notebook(range(np.shape(df)[0]), desc=readsname):
         row = df.iloc[i, ]
         if row['NUM_READS'] >= min_read:
