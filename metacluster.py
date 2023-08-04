@@ -1,27 +1,16 @@
-import pandas as pd
-import re
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
-from os import listdir
-from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange, tqdm
-import distance
+from tqdm import tqdm_notebook, tqdm
+from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np
-from datetime import datetime
-from IPython.display import display
 
 import time
 
 import pandas as pd
-import re
 from collections import defaultdict
 from collections import Counter
 import sys, os, re
 from os import listdir
 from os.path import isfile, join
-import numpy as nps
 
 pd.set_option('display.max_columns', 500)
 
@@ -37,9 +26,9 @@ def get_best_re(x, target_re):
     if len(x_count_max) == 1:
         return((x_count_max[0][0],
                 x_count_max[0][1],
-                distance.hamming(x_count_max[0][0], target_re)))
+                hamming_dist(x_count_max[0][0], target_re)))
     else:
-        x_ham = [(re,a,distance.hamming(re, target_re)) for re,a in x_count_max]
+        x_ham = [(re, a, hamming_dist(re, target_re)) for re, a in x_count_max]
         return(min(x_ham, key=itemgetter(2)))
 
 
@@ -245,10 +234,10 @@ def main(inputdir, pcdir, outputdir, window, target_re, blen):
     is_meta_table = False
     
     for hfile, pcfile in tqdm(paired_files):
-        htable = pd.read_table(inputdir + hfile, '\t')
+        htable = pd.read_table(inputdir + hfile)
         htable_cols = list(htable.columns)
         htable = htable.sort_values(by='CLUSTER_ID')
-        pctable = pd.read_table(pcdir + pcfile, '\t')
+        pctable = pd.read_table(pcdir + pcfile)
         pctable['BARCODE_LIST'].fillna('', inplace=True)
         pctable['BARCODE_Q_LIST'].fillna('', inplace=True)
         pctable_cols = list(pctable.columns)
