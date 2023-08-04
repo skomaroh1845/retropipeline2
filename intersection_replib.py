@@ -1,14 +1,9 @@
 import pandas as pd
-import numpy as np
 import intervaltree as it
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
+import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange, tqdm
-import distance
-from operator import itemgetter
+from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -41,8 +36,10 @@ def intersection_replib(filename, inputdir, outputdir, replib_dict):
                             overlap = get_overlap([x.begin, x.end], [start, end])/(end - start)
                             repfunc.append(get_repfunc(x.data[0], overlap))
                         repname = repname_list[repfunc.index(max(repfunc))]
-                        df.set_value(idx, 'REPEAT_FUNC', max(repfunc))
-                        df.set_value(idx, 'REPEAT_NAME', repname)
+                        #df.set_value(idx, 'REPEAT_FUNC', max(repfunc))
+                        #df.set_value(idx, 'REPEAT_NAME', repname)
+                        df.at[idx, 'REPEAT_FUNC'] = max(repfunc)
+                        df.at[idx, 'REPEAT_NAME'] = repname
             else:
                 for p, t, idx in zip(group['POS'], group['TLEN'], group.index):
                     start, end = p, p+t+1
@@ -54,10 +51,12 @@ def intersection_replib(filename, inputdir, outputdir, replib_dict):
                             overlap = get_overlap([x.begin, x.end], [start, end])/(end - start)
                             repfunc.append(get_repfunc(x.data[0], overlap))
                         repname = repname_list[repfunc.index(max(repfunc))]
-                        df.set_value(idx, 'REPEAT_FUNC', max(repfunc))
-                        df.set_value(idx, 'REPEAT_NAME', repname)
+                        #df.set_value(idx, 'REPEAT_FUNC', max(repfunc))
+                        #df.set_value(idx, 'REPEAT_NAME', repname)
+                        df.at[idx, 'REPEAT_FUNC'] = max(repfunc)
+                        df.at[idx, 'REPEAT_NAME'] = repname
 
-    df.to_csv(outputdir + filename, sep='\t', index=None)
+    df.to_csv(outputdir + filename, sep='\t', index=False)
 
 
 def main(inputdir, outputdir, repeatway, n_core):
