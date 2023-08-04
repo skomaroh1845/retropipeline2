@@ -1,13 +1,9 @@
 import pandas as pd
 import intervaltree as it
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
+import os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange
-import distance
-from operator import itemgetter
+from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -18,7 +14,7 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
 
     readsname = os.path.splitext(filename)[0].split('_humanread')[0]
 
-    rep = pd.read_table(replib_inputdir + readsname + '_ematch.txt', '\t')
+    rep = pd.read_table(replib_inputdir + readsname + '_ematch.txt')
     replib_group = rep.groupby(['CHR', 'STRAND'])
     replib_tree = {}
     for name, group in tqdm_notebook(replib_group, desc='rep: '+readsname):
@@ -33,7 +29,7 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
         replib_tree[name[0] + name[1]] = it.IntervalTree(it.Interval(start, end, ins_name)
          for start, end, ins_name in zip(start_group, end_group, list(group['NAME'])))
 
-    df = pd.read_table(inputdir + filename, '\t')
+    df = pd.read_table(inputdir + filename)
     if df.shape[0] == 0:
         pass
     else:
@@ -88,18 +84,18 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
             if row['CHR'] + row['INS_STRAND'] in replib_tree:
                 find_iter = replib_tree[row['CHR'] + row['INS_STRAND']][row['POS']]
                 if len(find_iter) == 0:
-                    pd.DataFrame(row).T.to_csv(df_out, sep='\t', mode='a', header=None, index=None)
+                    pd.DataFrame(row).T.to_csv(df_out, sep='\t', mode='a', header=False, index=False)
                 else:
                     ins_names = [ins.data for ins in find_iter]
                     if fix_ins is None:
                         fix_row = pd.concat([row, pd.Series([', '.join(ins_names)], index=['NAME'])])
-                        pd.DataFrame(fix_row).T.to_csv(df_fix, sep='\t', mode='a', header=None, index=None)
+                        pd.DataFrame(fix_row).T.to_csv(df_fix, sep='\t', mode='a', header=False, index=False)
                     else:
                         if set(fix_ins).intersection(set(ins_names)):
                             fix_row = pd.concat([row, pd.Series([', '.join(ins_names)], index=['NAME'])])
-                            pd.DataFrame(fix_row).T.to_csv(df_fix, sep='\t', mode='a', header=None, index=None)
+                            pd.DataFrame(fix_row).T.to_csv(df_fix, sep='\t', mode='a', header=False, index=False)
             else:
-                pd.DataFrame(row).T.to_csv(df_out, sep='\t', mode='a', header=None, index=None)
+                pd.DataFrame(row).T.to_csv(df_out, sep='\t', mode='a', header=False, index=False)
         df_out.close()
         df_fix.close()
 
