@@ -38,7 +38,8 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
                 score = []
                 for j in range(len(seq) - len(mseq_list[i]) + 1):
                     score.append(hamming_dist(seq[j:len(mseq_list[i])+j], mseq_list[i]))
-                df.set_value(idx[i], mname, min(score))
+                #df.set_value(idx[i], mname, min(score))
+                df.at[idx[i], mname] = min(score)
         else:
             mseq_list = [None for x in range(df.shape[0])]
             df[mname] = pd.Series(mseq_list, index = df.index)
@@ -52,7 +53,8 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
                 seq = seq.upper()
                 for r_site in mseq.keys():
                     if seq.find(r_site, 0) != -1:
-                        df.set_value(idx[i], mname, r_site)
+                        #df.set_value(idx[i], mname, r_site)
+                        df.at[idx[i], mname] = r_site
 
         df.to_csv(outputdir + filename, sep='\t', index=False)
 
