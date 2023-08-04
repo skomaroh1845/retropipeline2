@@ -1,12 +1,7 @@
 import pandas as pd
-import numpy as np
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
+import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange
-from operator import itemgetter
 from datetime import datetime
 
 
@@ -29,7 +24,7 @@ def main(inputdir, outputdir,
                                                      and os.path.splitext(f)[1] == '.txt')]
 
     for filename in onlyfiles:
-        df = pd.read_table(inputdir + filename, '\t')
+        df = pd.read_table(inputdir + filename)
         #print(filename, 'before_filters', df.shape)
         if re_hamming:
             #print(filename, 're_hamming', df[df['RE_HAMMING'] < re_hamming].shape)
@@ -38,7 +33,7 @@ def main(inputdir, outputdir,
             df['TMP'] = df['MISMATCH'].values + df['INSERTION'].values + df['DELETION'].values
             #print(filename, 'flank_errors', df[df['TMP'] < flank_errors].shape)
             df = df[df['TMP'] < flank_errors]
-            df = df.drop('TMP', 1)
+            df = df.drop('TMP', axis=1)
         if rsite:
             #print(filename, 'rsite', df[df[rsite].isnull()].shape)
             df = df[df[rsite].isnull()]
@@ -53,4 +48,4 @@ def main(inputdir, outputdir,
             df = df[df['MISS_'+re_name+'_HAMMING'] > m_re]
         if df.shape[0] == 0:
             continue
-        df.to_csv(outputdir + filename, index=None, sep='\t')
+        df.to_csv(outputdir + filename, index=False, sep='\t')
