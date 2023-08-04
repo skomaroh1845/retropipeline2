@@ -1,11 +1,9 @@
 import pandas as pd
-import re
-from collections import defaultdict
 from collections import Counter
-import sys, os, re
+import os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange, tqdm
+from tqdm import tqdm_notebook
 from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np

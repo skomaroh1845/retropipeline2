@@ -10,7 +10,6 @@ def getline(filename, lineno, module_globals=None):
     else:
         return ''
 
-
 # The cache
 
 cache = {} # The cache

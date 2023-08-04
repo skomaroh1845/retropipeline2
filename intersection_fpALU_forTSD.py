@@ -1,13 +1,9 @@
 import pandas as pd
 import intervaltree as it
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
+import os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange
-import distance
-from operator import itemgetter
+from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed

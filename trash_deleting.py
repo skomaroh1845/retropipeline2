@@ -5,6 +5,7 @@ from os.path import isfile, join
 from datetime import datetime
 
 
+
 def main(inputdir, outputdir,
          re_hamming,
          flank_errors,

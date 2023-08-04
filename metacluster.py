@@ -2,9 +2,7 @@ from tqdm import tqdm_notebook, tqdm
 from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np
-
 import time
-
 import pandas as pd
 from collections import defaultdict
 from collections import Counter

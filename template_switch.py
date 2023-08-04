@@ -1,31 +1,13 @@
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
-import sys, os, re
-from os import listdir
-from os.path import isfile, join
-import pandas as pd
 import subprocess
 from simplesam import Reader, Writer
 import pandas as pd
 import numpy as np
-from tqdm import tqdm_notebook, tnrange
-from datetime import datetime
-
-import pandas as pd
-import numpy as np
-import pysam
-from Bio import pairwise2
 from Bio.Seq import Seq
-import distance
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
-from os import listdir
-from os.path import isfile, join
+import os, re
 from tqdm import tqdm_notebook, tnrange
-from operator import itemgetter
 from datetime import datetime
-from joblib import Parallel, delayed
 
 '''
 Count lines if samfile
@@ -45,7 +27,7 @@ def tempate_switch(inputdir, outputdir,
     readsname = 'metatable'
     filename = 'metatable_humanread.txt'
 
-    df = pd.read_table(inputdir+filename, '\t')
+    df = pd.read_table(inputdir+filename)
     handle = open(outputdir+readsname+'.fastq', 'wt')
     for i in tqdm_notebook(range(df.shape[0]), desc='create fastq'):
         row = df.iloc[i, ]
@@ -118,7 +100,7 @@ def tempate_switch(inputdir, outputdir,
     samfile.close()
     tablefile.close()
 
-    df_tmp = pd.read_table(outputdir+readsname+'_tmp.txt', '\t')
+    df_tmp = pd.read_table(outputdir+readsname+'_tmp.txt')
     mdcolumn = list(np.repeat('*', df.shape[0]))
     mdmatch_list = list(np.zeros(df.shape[0]))
     tags = list(np.repeat('*', df.shape[0]))
@@ -146,7 +128,7 @@ def tempate_switch(inputdir, outputdir,
     #df = df[df['MDMATCH'] < template_switch_md]
     #df['TAGS'] = tags
     #df['TEMPLATE_SWITCH_STRAND'] = strand
-    df.to_csv(outputdir+readsname+'_ts.txt', index=None, sep='\t')
+    df.to_csv(outputdir+readsname+'_ts.txt', index=False, sep='\t')
 
 
 def main(inputdir, outputdir,

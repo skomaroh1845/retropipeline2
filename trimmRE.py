@@ -5,19 +5,14 @@ import numpy as np
 import pandas as pd
 from os import listdir
 from os.path import isfile, join
-from collections import namedtuple, defaultdict
-from tqdm import tqdm, tnrange
+from collections import namedtuple
+from tqdm import tnrange
 from joblib import Parallel, delayed
-import multiprocessing
 import gzip
 from IPython.display import display
 from operator import itemgetter
 from datetime import datetime
-#import pyximport
-#pyximport.install()
 from simple_func import hamming
-#import distance
-#from collections import Counter
 
 info = namedtuple('info', 'is_good read alu_barcode errors')
 
@@ -32,6 +27,7 @@ def count_in_rolling_window(seq, n, win_size):
         sub_seq = seq[i:i+win_size]
         count[i+win_size-1] = sub_seq.count(n) / win_size
     return count
+
 # recuresive search for end of polyN
 def detect_poly_n_mod(seq, n, win_size, th, shift, rev=0):
     count_n = count_in_rolling_window(seq, n, win_size)
@@ -45,6 +41,7 @@ def detect_poly_n_mod(seq, n, win_size, th, shift, rev=0):
         return detect_poly_n_mod(seq, n, win_size, th, shift, rev=rev+1)
     
     return cut_point
+
 # usless function
 # TODO: improve. set double win_size for additional correction
 def poly_n_point(seq, n, win_size, th, shift, kind='head'):

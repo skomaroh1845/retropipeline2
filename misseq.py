@@ -11,6 +11,7 @@ from datetime import datetime
 from joblib import Parallel, delayed
 
 
+
 def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
 
     df = pd.read_table(inputdir + filename)

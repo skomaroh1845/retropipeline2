@@ -9,6 +9,7 @@ from datetime import datetime
 from joblib import Parallel, delayed
 import pysam
 
+
 def create_db(x, restrict_site, max_dist, min_dist, ref):
     x.columns = ['CHR', 'START', 'END', 'STRAND', 'NAME']
     x['IDX'] = range(x.shape[0])

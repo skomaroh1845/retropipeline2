@@ -7,7 +7,7 @@ def hamming(x1, x2, m):
                 return False
     return True
 
-
+# return Hamming distance between two strings
 def hamming_dist(x1, x2):
     j = 0
     for i in range(len(x1)):

@@ -1,9 +1,9 @@
-import sys, os, re
+import os, re
 import subprocess
 from os import listdir
 from os.path import isfile, join
 from datetime import datetime
-from tqdm import tnrange, tqdm_notebook
+from tqdm import tqdm_notebook
 
 '''
 main

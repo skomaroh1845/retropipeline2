@@ -1,15 +1,10 @@
-from simplesam import Reader, Writer
-import sys, os, re
+import os
 from os import listdir
 from os.path import isfile, join
 from tqdm import tqdm, tnrange
 from datetime import datetime
 from joblib import Parallel, delayed
-import pandas as pd
-import numpy as np
-from collections import defaultdict
 import gline
-import time
 import pysam
 
 '''
@@ -89,7 +84,7 @@ def sam2table(filename, flags, inputdir, outputdir):
                             real_name_list = real_qname.split('__pr12bq:')
                             line = get_needed_pars(r1, r2, sam)
                             super_line = [real_name_list[0], line[0], line[1], line[2],
-                                        real_name_list[1], real_name_list[2], real_name_list[3], real_name_list[4], 
+                                        real_name_list[1], real_name_list[2], real_name_list[3], real_name_list[4],
                                         line[3], line[4], line[5], line[6], line[7],
                                         real_name_list[5], real_name_list[6]]
                             super_line = '\t'.join(super_line)
