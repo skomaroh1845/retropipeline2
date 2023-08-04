@@ -1,16 +1,12 @@
 import pandas as pd
 import numpy as np
 import pysam
-from Bio import pairwise2
 from Bio.Seq import Seq
-import distance
-from collections import defaultdict
-from collections import Counter
-import sys, os, re
+from simple_func import hamming_dist
+import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook, tnrange
-from operator import itemgetter
+from tqdm import tqdm_notebook
 from datetime import datetime
 from joblib import Parallel, delayed
 
@@ -41,7 +37,7 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
                     seq = seq.upper()
                 score = []
                 for j in range(len(seq) - len(mseq_list[i]) + 1):
-                    score.append(distance.hamming(seq[j:len(mseq_list[i])+j], mseq_list[i]))
+                    score.append(hamming_dist(seq[j:len(mseq_list[i])+j], mseq_list[i]))
                 df.set_value(idx[i], mname, min(score))
         else:
             mseq_list = [None for x in range(df.shape[0])]
@@ -58,7 +54,7 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
                     if seq.find(r_site, 0) != -1:
                         df.set_value(idx[i], mname, r_site)
 
-        df.to_csv(outputdir + filename, sep='\t', index=None)
+        df.to_csv(outputdir + filename, sep='\t', index=False)
 
 
 def main(inputdir, outputdir, refway, mseq, mname, shift, n_core):
