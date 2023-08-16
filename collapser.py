@@ -167,7 +167,7 @@ def main(inputdir, outputdir, target_re, n_core):
                               inputdir, outputdir, target_re)
         #stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(collapser)(filename,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(collapser)(filename,
                                             inputdir, outputdir, target_re)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()

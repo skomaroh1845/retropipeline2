@@ -78,7 +78,7 @@ def main(inputdir, outputdir, refway, mseq, mname, shift, n_core):
                         inputdir, outputdir, refway, mseq, mname, shift)
         #stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(misseq)(filename,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(misseq)(filename,
                                             inputdir, outputdir, refway, mseq, mname, shift)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()

@@ -124,7 +124,7 @@ def main(inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins
                               inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins)
         #stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(intersection)(filename,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(intersection)(filename,
                                             inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()

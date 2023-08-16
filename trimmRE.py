@@ -453,7 +453,7 @@ def main(inputdir, outputdir,
                               place_of_search_tail, min_seq_len_after_trimm)
         stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(trim_reads)(filename1, filename2,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(trim_reads)(filename1, filename2,
                                             inputdir, outputdir,
                                             primer, ad1, ad2, blen,
                                             shift, mist,

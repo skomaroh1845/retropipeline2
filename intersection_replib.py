@@ -96,7 +96,7 @@ def main(inputdir, outputdir, repeatway, n_core):
                               inputdir, outputdir, replib_dict)
         #stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(intersection_replib)(filename,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(intersection_replib)(filename,
                                             inputdir, outputdir, replib_dict)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()

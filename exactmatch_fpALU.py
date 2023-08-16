@@ -151,7 +151,7 @@ def main(inputdir, outputdir, replibrary, refway, restrict_site, max_dist, min_d
                               inputdir, outputdir, replibrary_data, min_read, inswindow)
         #stat_df = stat_series.to_frame().transpose()
     else:
-        stat_series = Parallel(n_jobs=n_core)(delayed(intersection)(filename,
+        stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(intersection)(filename,
                                             inputdir, outputdir, replibrary_data, min_read, inswindow)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()

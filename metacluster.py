@@ -282,7 +282,8 @@ def main(inputdir, pcdir, outputdir, window, target_re, blen):
             super_table = pd.merge(htable, pctable, how='left')
             if np.any(pd.isnull(super_table['FILENAME'])):
                 sys.exit('FUCKING_FILENAME    ' + hfile)
-            meta_table = meta_table.append(super_table)
+            # meta_table = meta_table.append(super_table)
+            meta_table = pd.concat([meta_table, super_table])
 
     mgroup = meta_table.groupby(['CHR', 'INS_STRAND', 'PRIMER'])
     metacluster_id = 0
