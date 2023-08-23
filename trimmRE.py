@@ -9,7 +9,7 @@ from collections import namedtuple
 from tqdm import tnrange
 from joblib import Parallel, delayed
 import gzip
-from IPython.display import display
+# from IPython.display import display
 from operator import itemgetter
 from datetime import datetime
 from simple_func import hamming
@@ -475,7 +475,7 @@ def main(inputdir, outputdir,
     stat_df_total.good = round(1 - stat_df_total.bad, 2)
     stat_df.loc[np.shape(stat_df)[0]] = stat_df_total
 
-    display(stat_df)
+    # display(stat_df)
 
     stat_name = ''.join([str(before.year),
                          str(before.month),
