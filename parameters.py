@@ -1,17 +1,17 @@
 #PATHWAYS
-INPUTDIR = '/mnt/c/Users/Komar/Lab/InPutDir/artificial_data_multi'
-OUTPUTDIR = '/mnt/c/Users/Komar/Lab/OutPutDir/artificial_multi'
+INPUTDIR = '/home/common/komarov.na/data/artificial_multi'
+OUTPUTDIR = '/home/common/komarov.na/results/artificial_multi'
 
 MAPPER = 'bowtie2' #bwa or bowtie2
-BOWTIE_INDEX = '/mnt/c/Users/Komar/Lab/UCSC_hg38/ref_bowtie2_index'
-BWA_INDEX = '/mnt/c/Users/Komar/Lab/UCSC_hg38/ref_bwa_index'
+BOWTIE_INDEX = '/home/common/komarov.na/reference/UCSC_hg38/ref_bowtie2_index'
+BWA_INDEX = '/home/common/komarov.na/reference/UCSC_hg38/ref_bwa_index'
 
-ALU_REF_LIB = '/mnt/c/Users/Komar/Lab/retroparty/Alu_replibrary_hg38.txt'  # fixed and polymorphic Alu insertions
-REF_GENOME = '/mnt/c/Users/Komar/Lab/UCSC_hg38/genome.fa'
-REPEATS_REF_LIB = '/mnt/c/Users/Komar/Lab/retroparty/repeats_hg38.tabular'  # all known fixed repeats
+ALU_REF_LIB = '/home/common/komarov.na/reference/Alu_replibrary_hg38.txt'  # fixed and polymorphic Alu insertions
+REF_GENOME = '/home/common/komarov.na/reference/UCSC_hg38/genome.fa'
+REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # all known fixed repeats
 
 #SYS PARAMETRS
-NCORE = 8  # threads
+NCORE = 4  # threads
 
 #PREPROCESSING
 PRIMER = 'GAGCCACCGCGC'
