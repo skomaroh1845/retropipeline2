@@ -6,7 +6,7 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 from collections import namedtuple
-from tqdm import tnrange
+# from tqdm import tnrange
 from joblib import Parallel, delayed
 import gzip
 # from IPython.display import display
@@ -294,9 +294,10 @@ def trim_reads(filename1, filename2, inputdir, outputdir,
     count_stat_col = ['fname', 'all', 'good', 'bad',
                       'primer', 'adapters',
                       'restrict_site', 'natural_zone', 'r2_start']
-    bar = tnrange(int(count_lines(inputdir+filename1)/4), desc=fname)
+    #bar = tnrange(int(count_lines(inputdir+filename1)/4), desc=fname)
     original_R12 = zip(original_R1_reads, original_R2_reads)
-    for i in bar:
+    #for i in bar:
+    for i in range(int(count_lines(inputdir+filename1)/4)):
         count_stat['all'] += 1
         r1, r2 = next(original_R12)
         if chaos:
