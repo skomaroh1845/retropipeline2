@@ -3,7 +3,7 @@ import subprocess
 from os import listdir
 from os.path import isfile, join
 from datetime import datetime
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 
 '''
 main
@@ -55,7 +55,7 @@ def main(inputdir, outputdir, refway, bwaline):
 
     logfile = open(outputdir + 'logfile_' + stat_name + '.log', 'w')
 
-    for filename1, filename2 in tqdm_notebook(conform_files, desc=''):
+    for filename1, filename2 in conform_files:     # tqdm_notebook(conform_files, desc=''):
         readsname = filename1.split('R1')[0]
         readsname = readsname.rsplit('.', 1)[0]
         if re.search('bwa', bwaline):

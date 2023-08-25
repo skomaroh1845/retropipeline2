@@ -3,7 +3,7 @@ import intervaltree as it
 import os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -18,7 +18,8 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
     rep = pd.read_table(replib_inputdir + readsname + '_ematch.txt')
     replib_group = rep.groupby(['CHR', 'STRAND'])
     replib_tree = {}
-    for name, group in tqdm_notebook(replib_group, desc='rep: '+readsname):
+    # for name, group in tqdm_notebook(replib_group, desc='rep: '+readsname):
+    for name, group in replib_group:
         if name[1] == '+':
             start_group = [pos-int((pos-r_site)*0.9)
                              for r_site, pos in zip(list(group['R_SITE_POS']), list(group['START']))]
@@ -80,7 +81,8 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
                                     'NUM_TLEN',
                                     'NAME']) + '\n')
         
-        for i in tqdm_notebook(range(np.shape(df)[0]), desc=readsname):
+        # for i in tqdm_notebook(range(np.shape(df)[0]), desc=readsname):
+        for i in range(np.shape(df)[0]):
             row = df.iloc[i, ]
             if row['CHR'] + row['INS_STRAND'] in replib_tree:
                 find_iter = replib_tree[row['CHR'] + row['INS_STRAND']][row['POS']]

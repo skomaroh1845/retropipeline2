@@ -1,7 +1,7 @@
 import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm, tnrange
+# from tqdm import tqdm, tnrange
 from datetime import datetime
 from joblib import Parallel, delayed
 import gline
@@ -63,11 +63,11 @@ def sam2table(filename, flags, inputdir, outputdir):
                 'BARCODE','BARCODE_Q']
     tablefile.write('\t'.join(colnames) + '\n')
     print('start: ' + readsname)
-    bar = tnrange(int(count_samlines(inputdir+filename)), desc=readsname)
+    # bar = tnrange(int(count_samlines(inputdir+filename)), desc=readsname)
     r1_bool = False
     r2_bool = False
     id_count = 1
-    for i in bar:
+    for i in range(int(count_samlines(inputdir+filename))):  # bar:
         r = next(sam)
         try:
             if sam.getrname(r.rname) in autosomeXY and r.flag in flags:

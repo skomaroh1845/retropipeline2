@@ -6,7 +6,7 @@ from simple_func import hamming_dist
 import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 from datetime import datetime
 from joblib import Parallel, delayed
 
@@ -27,7 +27,8 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
             else:
                 mseq_list = list(df['RE'])
             df[mname] = pd.Series(np.repeat(len(mseq_list[0]),df.shape[0]),index = df.index)
-            for i in tqdm_notebook(range(df.shape[0]), desc=readsname):
+            # for i in tqdm_notebook(range(df.shape[0]), desc=readsname):
+            for i in range(df.shape[0]):
                 row = df.iloc[i, ]
                 pos = int(row['POS'])
                 if row['INS_STRAND'] == '+':
@@ -44,7 +45,8 @@ def misseq(filename, inputdir, outputdir, refway, mseq, mname, shift):
         else:
             mseq_list = [None for x in range(df.shape[0])]
             df[mname] = pd.Series(mseq_list, index = df.index)
-            for i in tqdm_notebook(range(df.shape[0]), desc=readsname):
+            # for i in tqdm_notebook(range(df.shape[0]), desc=readsname):
+            for i in range(df.shape[0]):
                 row = df.iloc[i, ]
                 pos = int(row['POS'])
                 if row['INS_STRAND'] == '+':

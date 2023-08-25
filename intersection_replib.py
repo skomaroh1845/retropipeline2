@@ -3,7 +3,7 @@ import intervaltree as it
 import os
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -24,7 +24,8 @@ def intersection_replib(filename, inputdir, outputdir, replib_dict):
     df['REPEAT_FUNC'] = pd.Series(np.zeros(df.shape[0]), index = df.index)
     df['REPEAT_NAME'] = pd.Series(['*' for x in range(df.shape[0])], index = df.index)
     df_group = df.groupby(['CHR', 'INS_STRAND'])
-    for name, group in tqdm_notebook(df_group, desc=readsname):
+    # for name, group in tqdm_notebook(df_group, desc=readsname):
+    for name, group in df_group:
         if name[0] in replib_dict:
             if name[1] == '+':
                 for p, t, idx in zip(group['POS'], group['TLEN'], group.index):
@@ -83,7 +84,7 @@ def main(inputdir, outputdir, repeatway, n_core):
     #replib = replib[replib['CHR'] in autosomeXY]
     replib_group = replib.groupby(['CHR'])
     replib_dict = {}
-    for name, group in tqdm_notebook(replib_group, desc='replib'):
+    for name, group in replib_group:
         start_group = np.array(group['START'])
         end_group = np.array(group['END'])+1
         data_group = [(x,y) for x,y in zip(list(group['DIV']), list(group['NAME']))]

@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from Bio.Seq import Seq
 import os, re
-from tqdm import tqdm_notebook, tnrange
+# from tqdm import tqdm_notebook, tnrange
 from datetime import datetime
 
 '''
@@ -29,7 +29,8 @@ def tempate_switch(inputdir, outputdir,
 
     df = pd.read_table(inputdir+filename)
     handle = open(outputdir+readsname+'.fastq', 'wt')
-    for i in tqdm_notebook(range(df.shape[0]), desc='create fastq'):
+    # for i in tqdm_notebook(range(df.shape[0]), desc='create fastq'):
+    for i in range(df.shape[0]):
         row = df.iloc[i, ]
         seq = Seq(primer + str(row['RE']) + str(row['R1'])[0:main_flank_len])
         rec = SeqRecord(seq, id=''.join([row['READNAME'],
@@ -69,9 +70,8 @@ def tempate_switch(inputdir, outputdir,
                                'MATCH',
                                'TAGS',
                                'TEMPLATE_SWITCH_STRAND']) + '\n')
-    bar = tnrange(int(count_samlines(outputdir+readsname+'.sam')),
-                  desc='read samfile')
-    for i in bar:
+    # bar = tnrange(int(count_samlines(outputdir+readsname+'.sam')), desc='read samfile')
+    for i in range(int(count_samlines(outputdir+readsname+'.sam'))):   # bar:
         r = next(sam)
         metacluster_id = r.qname.split('__')[1]
         if r.mapped:
@@ -105,7 +105,8 @@ def tempate_switch(inputdir, outputdir,
     mdmatch_list = list(np.zeros(df.shape[0]))
     tags = list(np.repeat('*', df.shape[0]))
     strand = list(np.repeat('*', df.shape[0]))
-    for i in tqdm_notebook(range(df.shape[0]), desc='ts'):
+    # for i in tqdm_notebook(range(df.shape[0]), desc='ts'):
+    for i in range(df.shape[0]):
         row = df.iloc[i, ]
         meta_id = row['METACLUSTER_ID']
         minitable = df_tmp[df_tmp['METACLUSTER_ID'] == meta_id]

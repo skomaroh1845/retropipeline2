@@ -3,7 +3,7 @@ from collections import Counter
 import os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np
@@ -89,7 +89,7 @@ def collapser(filename, inputdir, outputdir, target_re):
     df_group = df.groupby(['CHR', 'INS_STRAND', 'POS', 'PRIMER'])
 
     cluster_id = 0
-    for (chrom, strand, pos, primer), group in tqdm_notebook(df_group, desc=readsname):
+    for (chrom, strand, pos, primer), group in df_group:  # tqdm_notebook(df_group, desc=readsname):
         cluster_id += 1
         best_row = group.loc[group['MDR1_value'] == max(list(group['MDR1_value']))].iloc[0]
         best_re = get_best_re(list(group['RE']), target_re)

@@ -3,7 +3,7 @@ import intervaltree as it
 import sys, os, re
 from os import listdir
 from os.path import isfile, join
-from tqdm import tqdm_notebook
+# from tqdm import tqdm_notebook
 import numpy as np
 from datetime import datetime
 from joblib import Parallel, delayed
@@ -17,7 +17,8 @@ def create_db(x, restrict_site, max_dist, min_dist, ref):
     x = x[x['CHR'].isin(chromosome_name)]
     r_site_control = []
     r_site_recompile = list(map(re.compile, restrict_site.keys()))
-    for i, row in tqdm_notebook(x.iterrows(), total=x.shape[0], desc='create database'):
+    # for i, row in tqdm_notebook(x.iterrows(), total=x.shape[0], desc='create database'):
+    for i, row in x.iterrows():
         row_info = [row['CHR'], row['START'], row['END'], row['STRAND'], row['NAME'], row['IDX']]
         pos_left = int(row['START']) - max_dist
         try:
@@ -89,7 +90,8 @@ def intersection(filename, inputdir, outputdir, replibrary, min_read, window):
     rep = replibrary.copy()
     replib_group = rep.groupby(['CHR', 'STRAND'])
     replib_tree = {}
-    for name, group in tqdm_notebook(replib_group, desc='replib'):
+    # for name, group in tqdm_notebook(replib_group, desc='replib'):
+    for name, group in replib_group:
         if name[1] == '+':
             start_group = [pos-window for pos in list(group['START'])]
             end_group = [pos+1+window for pos in list(group['START'])]
@@ -115,7 +117,8 @@ def intersection(filename, inputdir, outputdir, replibrary, min_read, window):
                                 'READNAME',
                                 'IDX']) + '\n')
     df = pd.read_table(inputdir + filename)
-    for i in tqdm_notebook(range(np.shape(df)[0]), desc=readsname):
+    # for i in tqdm_notebook(range(np.shape(df)[0]), desc=readsname):
+    for i in range(np.shape(df)[0]):
         row = df.iloc[i, ]
         if row['NUM_READS'] >= min_read:
             if row['CHR'] + row['INS_STRAND'] in replib_tree:

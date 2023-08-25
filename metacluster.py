@@ -1,4 +1,4 @@
-from tqdm import tqdm_notebook, tqdm
+# from tqdm import tqdm_notebook, tqdm
 from simple_func import hamming_dist
 from operator import itemgetter
 import numpy as np
@@ -231,7 +231,8 @@ def main(inputdir, pcdir, outputdir, window, target_re, blen):
 
     is_meta_table = False
     
-    for hfile, pcfile in tqdm(paired_files):
+    # for hfile, pcfile in tqdm(paired_files):
+    for hfile, pcfile in paired_files:
         htable = pd.read_table(inputdir + hfile)
         htable_cols = list(htable.columns)
         htable = htable.sort_values(by='CLUSTER_ID')
@@ -287,7 +288,8 @@ def main(inputdir, pcdir, outputdir, window, target_re, blen):
 
     mgroup = meta_table.groupby(['CHR', 'INS_STRAND', 'PRIMER'])
     metacluster_id = 0
-    for name, group in tqdm_notebook(mgroup, desc='chrom+strand+primer'):
+    # for name, group in tqdm_notebook(mgroup, desc='chrom+strand+primer'):
+    for name, group in mgroup:
         group = group.sort_values(['POS'])
         metacluster_id = metaclustering(group, window, metacluster_id,
                                         name[0], name[1], name[2], target_re,
