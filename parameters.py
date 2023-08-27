@@ -1,6 +1,8 @@
+import sys
+
 #PATHWAYS
-INPUTDIR = '/home/common/komarov.na/data/artificial_multi'
-OUTPUTDIR = '/home/common/komarov.na/results/artificial_multi'
+INPUTDIR = sys.argv[1]  # '/home/common/komarov.na/data/artificial_multi'
+OUTPUTDIR = sys.argv[2]  #  '/home/common/komarov.na/results/artificial_multi'
 
 MAPPER = 'bowtie2' #bwa or bowtie2
 BOWTIE_INDEX = '/home/common/komarov.na/reference/UCSC_hg38/ref_bowtie2_index'
@@ -11,7 +13,7 @@ REF_GENOME = '/home/common/komarov.na/reference/UCSC_hg38/genome.fa'
 REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # all known fixed repeats
 
 #SYS PARAMETRS
-NCORE = 4  # threads
+NCORE = 16  # threads
 
 #PREPROCESSING
 PRIMER = 'GAGCCACCGCGC'
