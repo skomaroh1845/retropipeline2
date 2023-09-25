@@ -23,18 +23,18 @@ AD1 = 'GCGTGCTGCGG'
 AD2 = 'AGGGCGGT'
 BLEN = 9
 RE = 'CCGGCC'
-RESTRICT_SITE = {'AGCT': 'CT', 'TCGA': 'GA'} # {'GTAC': 'TAC', 'CTAG': 'TAG'} # {'restrict site': 'r2_start'}
-IS_SHORT_FLANK = True
+RESTRICT_SITE = {'AGCT': 'CT'} #, 'TCGA': 'GA'} # {'GTAC': 'TAC', 'CTAG': 'TAG'} # {'restrict site': 'r2_start'}
+IS_SHORT_FLANK = False
 CHAOS = True
 TRIMM_N = 0
 TRIMM_POLY_N = False
 POLY_N_R1 = (15, 0.8, 7) # poly_n_win_size_r1, poly_n_th_r1, poly_n_shift_r1
 POLY_N_R2 = (15, 0.8, 7) # poly_n_win_size_r2, poly_n_th_r2, poly_n_shift_r2
 SKIP_SHORT_READS = 50
-MID_MIST_SHORT_READS = (3, 2) # (r1 ,r2) max mismatches in AD2 or PRIMER which will remove from reads
-END_MIST_SHORT_READS = (6, 6) # (r1 ,r2) min length of AD2 or PRIMER at the reads ends
+MID_MIST_SHORT_READS = (1, 2) # (r1 ,r2) max mismatches in AD2 or PRIMER which will remove from reads
+END_MIST_SHORT_READS = (5, 5) # (r1 ,r2) min length of AD2 or PRIMER at the reads ends
 PLACE_OF_SEARCH_TAIL = (None, None) # (r1 ,r2)
-MIN_SEQ_LEN_AFTER_TRIMM = (25, 25) # (r1 ,r2)
+MIN_SEQ_LEN_AFTER_TRIMM = (0, 0) # (r1 ,r2)
 
 #SAMFILTER
 FLAGS = [99, 83, 147, 163] # + [355, 339, 403, 419]
@@ -46,9 +46,9 @@ FIX_WINDOW = 1
 MIN_READ = 1
 MAX_DIST = 1000
 MIN_DIST = 0
-INSWINDOW_FIX = 40
+INSWINDOW_FIX = 15 # 40
 SHIFT_RESTRICT_SITE = 3
-SHIFT_MISS_PRIMER = 12
+SHIFT_MISS_PRIMER = 20 # 12
 SHIFT_MISS_RE = 8
 
 #THRESHOLDS
