@@ -2,3 +2,7 @@
 __pycache__/trimmRE.cpython-310.pyc
 __pycache__/parameters.cpython-310.pyc
 .ipynb_checkpoints/AluPipeline_for_working_with_fix_ins-checkpoint.ipynb
+.ipynb_checkpoints/RepeatMasker_parsing-checkpoint.ipynb
+*.pyc
+.ipynb_checkpoints/Blat_analysis-checkpoint.ipynb
+.ipynb_checkpoints/Data_postprocessing-checkpoint.ipynb
