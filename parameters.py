@@ -16,12 +16,12 @@ REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # al
 NCORE = 16  # threads
 
 #PREPROCESSING
-PRIMER = 'GAGCCACCGCGC'
+PRIMER = 'GTGAGCCACCGCGC'
 SHIFT = 5
 MIST = 1
-AD1 = 'GCGTGCTGCGG'
+AD1 = 'AGGGCGTGGTGCGG'
 AD2 = 'AGGGCGGT'
-BLEN = 9
+BLEN = 0
 RE = 'CCGGCC'
 RESTRICT_SITE = {'AGCT': 'CT'} #, 'TCGA': 'GA'} # {'GTAC': 'TAC', 'CTAG': 'TAG'} # {'restrict site': 'r2_start'}
 IS_SHORT_FLANK = True
