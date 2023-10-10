@@ -273,12 +273,12 @@ def trim_reads(filename1, filename2, inputdir, outputdir,
     fnameout = filename1.split('R1')[0]
     outputfile1, ext = os.path.splitext(filename1)
     outputfile2, ext = os.path.splitext(filename2)
-    goodr1 = open(outputdir + fnameout + '_R1_good.fastq', 'w')
-    goodr2 = open(outputdir + fnameout + '_R2_good.fastq', 'w')
-    badr1 = open(outputdir + fnameout + '_R1_bad.fastq', 'w')
-    badr2 = open(outputdir + fnameout + '_R2_bad.fastq', 'w')
+    goodr1 = open(outputdir + fnameout + f'_R1_good{restrict_site.keys()}.fastq', 'w')
+    goodr2 = open(outputdir + fnameout + f'_R2_good{restrict_site.keys()}.fastq', 'w')
+    badr1 = open(outputdir + fnameout + f'_R1_bad{restrict_site.keys()}.fastq', 'w')
+    badr2 = open(outputdir + fnameout + f'_R2_bad{restrict_site.keys()}.fastq', 'w')
     
-    metafile = open(outputdir + fnameout + '_meta.txt', 'w')
+    metafile = open(outputdir + fnameout + f'_meta{restrict_site.keys()}.txt', 'w')
     
     print('start: ' + fname)
     unzip_r1 = gzip.open(inputdir + filename1, 'rt')
