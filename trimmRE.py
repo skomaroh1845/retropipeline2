@@ -300,17 +300,20 @@ def trim_reads(filename1, filename2, inputdir, outputdir,
     for i in range(int(count_lines(inputdir+filename1)/4)):
         count_stat['all'] += 1
         r1, r2 = next(original_R12)
-        if chaos:
-            if is_r1(r1, primer, shift, mist):
+
+        if len(str(r1.seq)) > skip_short_reads and len(str(r2.seq)) > skip_short_reads:
+
+            if chaos:
+                if is_r1(r1, primer, shift, mist):
+                    rx1 = r1
+                    rx2 = r2
+                else:
+                    rx1 = r2
+                    rx2 = r1
+            else:
                 rx1 = r1
                 rx2 = r2
-            else:
-                rx1 = r2
-                rx2 = r1
-        else:
-            rx1 = r1
-            rx2 = r2
-        if len(str(rx1.seq)) > skip_short_reads and len(str(rx2.seq)) > skip_short_reads:
+
             if trimm_n:
                 rx1 = rx1[:-trimm_n]
                 rx2 = rx2[:-trimm_n]
@@ -364,9 +367,9 @@ def trim_reads(filename1, filename2, inputdir, outputdir,
                 badr2.write(rx2.format('fastq'))
                 count = np.sum([count, fr1.errors], axis=0)
         else:
-            rx2.description += (' reason: skip_short_reads')
-            badr1.write(rx1.format('fastq'))
-            badr2.write(rx2.format('fastq'))
+            r2.description += (' reason: skip_short_reads')
+            badr1.write(r1.format('fastq'))
+            badr2.write(r2.format('fastq'))
     
     metafile.close()
     unzip_r1.close()
