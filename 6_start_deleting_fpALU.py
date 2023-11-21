@@ -10,4 +10,5 @@ intersection_fpALU.main(inputdir = os.path.abspath(p.OUTPUTDIR) + '/collapse_tab
                         replib_inputdir = os.path.abspath(p.OUTPUTDIR) + '/ematch_table/',
                         inswindow = p.INSWINDOW_FIX,
                         fix_ins = None,
-                        n_core = p.NCORE)
+                        n_core = p.NCORE,
+                        prime = p.WHICH_TAIL)
