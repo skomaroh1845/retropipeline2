@@ -8,7 +8,7 @@ MAPPER = 'bowtie2' #bwa or bowtie2
 BOWTIE_INDEX = '/home/common/komarov.na/reference/UCSC_hg38/ref_bowtie2_index'
 BWA_INDEX = '/home/common/komarov.na/reference/UCSC_hg38/ref_bwa_index'
 
-ALU_REF_LIB = '/home/common/komarov.na/reference/Alu_replibrary_hg38.txt'  # fixed and polymorphic Alu insertions
+ALU_REF_LIB = '/home/common/komarov.na/reference/Human_L1_coord_hg38.txt'  # fixed and polymorphic Alu insertions
 REF_GENOME = '/home/common/komarov.na/reference/UCSC_hg38/genome.fa'
 REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # all known fixed repeats
 
@@ -16,25 +16,33 @@ REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # al
 NCORE = 8  # threads
 
 #PREPROCESSING
-PRIMER = 'GTGAGCCACCGCGC'
+PRIMER = 'CATATGTAACTAACCTGCACAATGTGCACATGTACCCTAAAACTTAAAGTAT'  # 'GTGAGCCACCGCGC'
 SHIFT = 5
-MIST = 1
-AD1 = 'AGGGCGTGGTGCGG'
-AD2 = 'AGGGCGGT'
+MIST = 2
+AD1 = 'AGGGCGTGGTGCGG' #'AGGGCGAG'  #'AGGGCGTGGTGCGG'
+AD2 = 'AGGGCGAG'  #'AGGGCGGT'
 BLEN = 0
-RE = 'CCGGCC'
-RESTRICT_SITE = {'AGCT': 'CT'}  # {'restrict site': 'r2_start'}
+RE = 'AATAAA' #'CCGGCC'
+
+argumentList = sys.argv[3].split('_')
+RESTRICT_SITE = {}
+for arg in argumentList:
+    tmp = arg.split('-')
+    RESTRICT_SITE[tmp[0]] = tmp[1]
+#print(RESTRICT_SITE)
+            #{'GTAC':'AC', 'AGCT': 'CT'} # {'GTAC': 'TAC', 'CTAG': 'TAG'} # {'restrict site': 'r2_start'}
+
 IS_SHORT_FLANK = True
 CHAOS = True
 TRIMM_N = 0
-TRIMM_POLY_N = False
-POLY_N_R1 = (15, 0.8, 7) # poly_n_win_size_r1, poly_n_th_r1, poly_n_shift_r1
-POLY_N_R2 = (15, 0.8, 7) # poly_n_win_size_r2, poly_n_th_r2, poly_n_shift_r2
-SKIP_SHORT_READS = 50
+TRIMM_POLY_N = True
+POLY_N_R1 = (15, 0.8, 30) # poly_n_win_size_r1, poly_n_th_r1, poly_n_shift_r1
+POLY_N_R2 = (15, 0.8, 30) # poly_n_win_size_r2, poly_n_th_r2, poly_n_shift_r2
+SKIP_SHORT_READS = 60
 MID_MIST_SHORT_READS = (1, 2) # (r1 ,r2) max mismatches in AD2 or PRIMER which will remove from reads
 END_MIST_SHORT_READS = (5, 5) # (r1 ,r2) min length of AD2 or PRIMER at the reads ends
 PLACE_OF_SEARCH_TAIL = (None, None) # (r1 ,r2)
-MIN_SEQ_LEN_AFTER_TRIMM = (0, 0) # (r1 ,r2)
+MIN_SEQ_LEN_AFTER_TRIMM = (25, 25) # (r1 ,r2)
 
 #SAMFILTER
 FLAGS = [99, 83, 147, 163] # + [355, 339, 403, 419]
@@ -48,7 +56,7 @@ MAX_DIST = 1000
 MIN_DIST = 0
 INSWINDOW_FIX = 40 # 15 # 40
 SHIFT_RESTRICT_SITE = 5 # 3
-SHIFT_MISS_PRIMER = 27 # 20 # 12   # >= lenght of primer
+SHIFT_MISS_PRIMER = 60 # 20 # 12 # >= lenght of primer
 SHIFT_MISS_RE = 10 # 8
 WHICH_TAIL = 3 # 5 if 5' repeat tail, 3 if 3' repeat tail
 

@@ -7,3 +7,4 @@ __pycache__/parameters.cpython-310.pyc
 .ipynb_checkpoints/Blat_analysis-checkpoint.ipynb
 .ipynb_checkpoints/Data_postprocessing-checkpoint.ipynb
 .ipynb_checkpoints/pipeline_output_analysis-checkpoint.ipynb
+parameters.py
