@@ -13,7 +13,7 @@ REF_GENOME = '/home/common/komarov.na/reference/UCSC_hg38/genome.fa'
 REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # all known fixed repeats
 
 #SYS PARAMETRS
-NCORE = 8  # threads
+NCORE = 16  # threads
 
 #PREPROCESSING
 PRIMER = 'CATATGTAACTAACCTGCACAATGTGCACATGTACCCTAAAACTTAAAGTAT'  # 'GTGAGCCACCGCGC'
@@ -58,7 +58,6 @@ INSWINDOW_FIX = 40 # 15 # 40
 SHIFT_RESTRICT_SITE = 5 # 3
 SHIFT_MISS_PRIMER = 60 # 20 # 12 # >= lenght of primer
 SHIFT_MISS_RE = 10 # 8
-WHICH_TAIL = 3 # 5 if 5' repeat tail, 3 if 3' repeat tail
 
 #THRESHOLDS
 RE_HAMMING = 2
@@ -70,4 +69,4 @@ TEMPLATE_SWITCH_MD = 30 # do not used
 
 #METACLUSTERING
 WINDOW = 100
-MAIN_FLANK_LEN = 14 # template switch
+MAIN_FLANK_LEN = 14 # template switch?

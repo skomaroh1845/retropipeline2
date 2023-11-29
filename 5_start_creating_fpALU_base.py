@@ -13,5 +13,5 @@ exactmatch_fpALU.main(inputdir = os.path.abspath(p.OUTPUTDIR) + '/collapse_table
                       min_dist = p.MIN_DIST,
                       min_read = p.MIN_READ,
                       inswindow = p.FIX_WINDOW,
-                      direction = p.WHICH_TAIL,
+                      direction = 5,
                       n_core = p.NCORE)
