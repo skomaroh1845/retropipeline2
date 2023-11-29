@@ -11,7 +11,7 @@ from joblib import Parallel, delayed
 
 
 
-def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins, prime):
+def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins):
 
     readsname = os.path.splitext(filename)[0].split('_humanread')[0]
 
@@ -20,24 +20,14 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
     replib_tree = {}
     # for name, group in tqdm_notebook(replib_group, desc='rep: '+readsname):
     for name, group in replib_group:
-        if prime == 5:
-            if name[1] == '+':
-                start_group = [pos-int((pos-r_site)*0.9)
-                                 for r_site, pos in zip(list(group['R_SITE_POS']), list(group['START']))]
-                end_group = [pos+inswindow+1 for pos in list(group['START'])]
-            else:
-                end_group = [pos+int((r_site-pos)*0.9)+1
-                                 for r_site, pos in zip(list(group['R_SITE_POS']), list(group['END']))]
-                start_group = [pos-inswindow for pos in list(group['END'])]
-        elif prime == 3:
-            if name[1] == '+':
-                end_group = [pos+int((r_site-pos)*0.9)+1
-                                for r_site, pos in zip(list(group['R_SITE_POS']), list(group['END']))]
-                start_group = [pos-inswindow for pos in list(group['END'])]
-            else:
-                start_group = [pos-int((pos-r_site)*0.9)
-                                for r_site, pos in zip(list(group['R_SITE_POS']), list(group['START']))]
-                end_group = [pos+inswindow+1 for pos in list(group['START'])]
+        if name[1] == '+':
+            start_group = [pos-int((pos-r_site)*0.9)
+                             for r_site, pos in zip(list(group['R_SITE_POS']), list(group['START']))]
+            end_group = [pos+inswindow+1 for pos in list(group['START'])]
+        else:
+            end_group = [pos+int((r_site-pos)*0.9)+1
+                             for r_site, pos in zip(list(group['R_SITE_POS']), list(group['END']))]
+            start_group = [pos-inswindow for pos in list(group['END'])]
         replib_tree[name[0] + name[1]] = it.IntervalTree(it.Interval(start, end, ins_name)
          for start, end, ins_name in zip(start_group, end_group, list(group['NAME'])))
 
@@ -113,7 +103,7 @@ def intersection(filename, inputdir, outputdir, outputdir_fix, replib_inputdir, 
         df_fix.close()
 
 
-def main(inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins, n_core, prime):
+def main(inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins, n_core):
 
     before = datetime.now()
     inputdir = os.path.abspath(inputdir) + '/'
@@ -133,10 +123,10 @@ def main(inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins
     if len(onlyfiles) == 1:
         filename = onlyfiles[0]
         stat_series = intersection(filename,
-                              inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins, prime)
+                              inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins)
         #stat_df = stat_series.to_frame().transpose()
     else:
         stat_series = Parallel(n_jobs=n_core, prefer="threads")(delayed(intersection)(filename,
-                                            inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins, prime)
+                                            inputdir, outputdir, outputdir_fix, replib_inputdir, inswindow, fix_ins)
                                                 for filename in onlyfiles)
         #stat_df = pd.concat(stat_series, axis=1).transpose()
