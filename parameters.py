@@ -13,7 +13,7 @@ REF_GENOME = '/home/common/komarov.na/reference/UCSC_hg38/genome.fa'
 REPEATS_REF_LIB = '/home/common/komarov.na/reference/repeats_hg38.tabular'  # all known fixed repeats
 
 #SYS PARAMETRS
-NCORE = 16  # threads
+NCORE = 8  # threads
 
 #PREPROCESSING
 PRIMER = 'CATATGTAACTAACCTGCACAATGTGCACATGTACCCTAAAACTTAAAGTAT'  # 'GTGAGCCACCGCGC'
@@ -39,7 +39,7 @@ TRIMM_POLY_N = True
 POLY_N_R1 = (15, 0.8, 30) # poly_n_win_size_r1, poly_n_th_r1, poly_n_shift_r1
 POLY_N_R2 = (15, 0.8, 30) # poly_n_win_size_r2, poly_n_th_r2, poly_n_shift_r2
 SKIP_SHORT_READS = 60
-MID_MIST_SHORT_READS = (1, 2) # (r1 ,r2) max mismatches in AD2 or PRIMER which will remove from reads
+MID_MIST_SHORT_READS = (2, 2) # (r1 ,r2) max mismatches in AD2 or PRIMER which will remove from reads
 END_MIST_SHORT_READS = (5, 5) # (r1 ,r2) min length of AD2 or PRIMER at the reads ends
 PLACE_OF_SEARCH_TAIL = (None, None) # (r1 ,r2)
 MIN_SEQ_LEN_AFTER_TRIMM = (25, 25) # (r1 ,r2)
@@ -69,4 +69,4 @@ TEMPLATE_SWITCH_MD = 30 # do not used
 
 #METACLUSTERING
 WINDOW = 100
-MAIN_FLANK_LEN = 14 # template switch?
+MAIN_FLANK_LEN = 14 # template switch
